@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Migration Readiness Finding</label>
+    <pluralLabel>Migration Readiness Findings</pluralLabel>
+    <nameField>
+        <label>Finding Name</label>
+        <type>AutoNumber</type>
+        <displayFormat>MRF-{0000}</displayFormat>
+    </nameField>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <sharingModel>ReadWrite</sharingModel>
+    <description>
+        Scratch/storage object for record-level findings written by MigrationReadinessBatch.apex.
+        Read by the npsp-migration-readiness-scanner CLI plugin and folded into its report. Safe to
+        truncate between scans - this object holds no source-of-truth data, only scan output.
+    </description>
+</CustomObject>

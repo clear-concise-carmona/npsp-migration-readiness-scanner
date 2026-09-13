@@ -1,0 +1,6 @@
+node_modules/
+lib/
+oclif.manifest.json
+npsp-migration-readiness-report.md
+*.log
+.DS_Store

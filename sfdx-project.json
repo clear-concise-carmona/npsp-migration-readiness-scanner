@@ -1,0 +1,12 @@
+{
+  "packageDirectories": [
+    {
+      "path": "apex",
+      "default": true
+    }
+  ],
+  "name": "npsp-migration-readiness-scanner",
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "62.0"
+}
