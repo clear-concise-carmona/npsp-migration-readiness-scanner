@@ -130,7 +130,9 @@ Cloud behavior, but real orgs are messier than documentation.
 
 Built by [Jeremy Carmona](https://www.clearconciseconsulting.com/about), a 13x certified Salesforce
 Architect and founder of [Clear Concise Consulting](https://www.clearconciseconsulting.com), a
-Salesforce consultancy for nonprofit, healthcare, and enterprise organizations.
+Salesforce consultancy for nonprofit, healthcare, and enterprise organizations. This scanner comes
+out of CCC's [Salesforce nonprofit consulting](https://www.clearconciseconsulting.com/services/salesforce-nonprofit-consulting)
+practice - NPSP and Nonprofit Cloud implementation, migration, and data quality work for nonprofits.
 
 **See your org's migration-readiness score before you commit to a migration timeline.** Run the
 scanner, and if you want a second read on the results - [get a free 30-minute migration-readiness
