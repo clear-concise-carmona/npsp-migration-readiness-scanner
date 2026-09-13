@@ -1,13 +1,16 @@
 # npsp-migration-readiness-scanner
 
-An `sf` CLI plugin that scans an NPSP org, scores its Nonprofit Cloud migration readiness from
-0-100, and writes a blocker-by-blocker Markdown report - so "how bad will our migration be" has an
-actual number attached instead of a guess from a discovery call.
+A **Salesforce nonprofit migration scanner**: an `sf` CLI plugin that runs your **NPSP migration
+readiness** check, scores your **NPSP to Nonprofit Cloud assessment** from 0-100, and writes a
+blocker-by-blocker Markdown report - so "how bad will our migration be" has an actual number
+attached instead of a guess from a discovery call.
 
-NPSP has been in feature freeze since March 2023 with no announced retirement date, and new
-nonprofit orgs are now provisioned into Nonprofit Cloud by default ([Salesforce Ben](https://www.salesforceben.com/the-state-of-salesforce-nonprofit-offerings-in-2026/)). Every NPSP org will eventually face this decision. This tool doesn't make the decision for you - it tells
-you what your specific org's migration actually touches, quantitatively, before you commit to a
-timeline or a budget.
+NPSP has been frozen since March 2023 with no announced retirement date, and new nonprofit orgs
+are now provisioned into Nonprofit Cloud by default ([Salesforce Ben](https://www.salesforceben.com/the-state-of-salesforce-nonprofit-offerings-in-2026/)). Every NPSP org will eventually face this decision, and every one of them carries its own
+**nonprofit cloud migration risk** profile - a small nonprofit with a clean data model faces a very
+different migration than one with fifteen years of custom Apex bolted onto Opportunity triggers.
+This tool doesn't make the decision for you - it tells you what your specific org's migration
+actually touches, quantitatively, before you commit to a timeline or a budget.
 
 **Not a Salesforce product, not officially affiliated with or endorsed by Salesforce.** Independent
 tool built by [Clear Concise Consulting](https://www.clearconciseconsulting.com) out of repeated
@@ -38,8 +41,8 @@ with 11 blockers actually looks like in practice.
 If you think a weight is wrong for how these risks actually play out in real migrations, open an
 issue; we'd rather argue about it in the open than ship a black box.
 
-For the field-level detail behind any of these checks, see the companion repo
-[npsp-to-nonprofit-cloud-field-map](https://github.com/clear-concise-carmona/npsp-to-nonprofit-cloud-field-map).
+For the field-level detail behind any of these checks, see the companion
+[NPSP field mapping reference](https://github.com/clear-concise-carmona/npsp-to-nonprofit-cloud-field-map).
 
 ## Installation
 
@@ -98,6 +101,8 @@ with this repo's metadata - it never touches NPSP or standard object data.
 
 Every blocker in the report has a severity (`critical` / `high` / `medium` / `low`), a plain-English
 explanation of what was found, and a specific recommendation - not just "this might be a problem."
+Treat the sorted blocker list as your NPSP migration checklist: work down it by severity rather than
+by whatever surfaces first in a discovery call.
 
 ## Sample report
 
