@@ -46,14 +46,13 @@ For the field-level detail behind any of these checks, see the companion
 
 ## Installation
 
-Requires [Salesforce CLI](https://developer.salesforce.com/tools/salesforcecli) (`sf`) already
-installed.
+Requires [Salesforce CLI](https://developer.salesforce.com/tools/salesforcecli) (`sf`) and
+Node.js 18 or newer.
 
-```bash
-sf plugins install npsp-migration-readiness-scanner
-```
-
-Or, to build from source:
+**Install from source.** This is the only supported installation method. The package is not
+published to npm, so `sf plugins install npsp-migration-readiness-scanner` does not work and
+fails with a registry 404. npm installation stays unavailable until the package is
+intentionally published, and this section changes when that happens.
 
 ```bash
 git clone https://github.com/clear-concise-carmona/npsp-migration-readiness-scanner.git
@@ -62,6 +61,15 @@ npm install
 npm run build
 sf plugins link .
 ```
+
+Confirm the link took:
+
+```bash
+sf plugins             # npsp-migration-readiness-scanner appears, marked as linked
+sf npsp scan --help
+```
+
+To remove it later, run `sf plugins unlink .` from the repo directory.
 
 ## Running your first scan
 
@@ -104,6 +112,59 @@ explanation of what was found, and a specific recommendation - not just "this mi
 Treat the sorted blocker list as your NPSP migration checklist: work down it by severity rather than
 by whatever surfaces first in a discovery call.
 
+## How to validate results
+
+The score is a starting point for a conversation, not a verdict. Before you put a number in
+front of a board or a client, confirm it against the org yourself.
+
+1. **Run it in a sandbox first.** Use a sandbox that was refreshed from production recently
+   enough that its metadata and record volumes still resemble the real org. Record counts in
+   a Developer sandbox are not representative and will skew the volume-based checks.
+2. **Re-read the blocker list against Setup.** Every blocker names something specific: an
+   object, a trigger, a field, a record count. Open Setup and confirm each one exists and
+   that the count is in the right range. A blocker naming something you cannot find is a bug;
+   open an issue.
+3. **Check the unused-field findings by hand before acting on them.** The check measures
+   field population, not field usage. A field at 0% population can still be referenced by a
+   Flow, a report type, a validation rule, or Apex. Population rate tells you the field holds
+   no data. It does not tell you the field is safe to delete.
+4. **Compare the weighted score against the raw subscores.** The score breakdown table shows
+   each check's subscore and weight. If one check dominates the result, say so out loud when
+   you present the number rather than quoting the composite alone.
+5. **Run it twice, a week apart, on an org under active development.** Two runs that disagree
+   without an explanation mean something moved that you should understand before planning
+   around either result.
+6. **Read [src/lib/scoring.ts](src/lib/scoring.ts) before defending a weight.** The weights
+   are documented reasoning, not a validated model. If you disagree with one, change it and
+   say that you did.
+
+## Limitations
+
+This tool supports technical assessment and review. It does not replace architecture review,
+security review, legal advice, compliance determination, or organization-specific
+implementation decisions. Review the source, the weights, and the output before relying on a
+result.
+
+Specific limits worth knowing before you quote a number:
+
+- **The weights are a documented judgment, not a validated formula.** No statistical model
+  backs the 20/20/15/15/10/10/10 split. It reflects how these risks have shown up in scoping
+  work, written down so you can argue with it.
+- **Seven checks are not the full surface of an NPSP migration.** Reports, dashboards, list
+  views, Flows, integrations, managed packages beyond NPSP, and Experience Cloud sites are
+  all out of scope for this release. A high score means these seven checks came back clean,
+  not that the migration is simple.
+- **Field population is measured, not field usage.** See point 3 above.
+- **The Apex test class has never run against a live org.** CI compiles and tests the
+  TypeScript. It does not deploy Apex, because this repo has no Dev Hub attached. Deploy the
+  optional batch class to a sandbox and run its tests before you run it anywhere else.
+- **This release has no JSON or CSV output.** Markdown only.
+- **Score thresholds are a framing device.** The 80/55/30 bands are there to make the number
+  actionable in a conversation. They are not calibrated against migration outcome data,
+  because no such public dataset exists.
+- **It is not a compliance, security, or certification tool** and makes no claim about any
+  standard or program.
+
 ## Sample report
 
 See [samples/sample-report.md](samples/sample-report.md) for a full example: a fabricated demo org
@@ -119,6 +180,19 @@ scoring 38/100 with 11 blockers, showing every section of the report format.
 - [ ] Expand record-level Apex checks beyond the current Household/Affiliation mismatch check
 
 Contributions toward any of these are welcome - see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Maintenance Status
+
+This is an independently maintained open-source project by Clear Concise Consulting. Issues
+and pull requests are welcome. Maintenance is prioritized around correctness, documentation,
+security concerns, and compatibility with supported Salesforce tooling. No response-time or
+feature-delivery commitment is implied.
+
+Current release: **v0.1.0**, the first tagged release. It builds and its TypeScript tests pass
+in CI. It has not been run against a wide range of production NPSP orgs, and it is not
+published to a package registry. Treat the output as evidence for a person to review.
+
+Security reports: see [SECURITY.md](SECURITY.md).
 
 ## Contributing
 

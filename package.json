@@ -1,13 +1,12 @@
 {
   "name": "npsp-migration-readiness-scanner",
   "description": "SFDX/sf CLI plugin that scans an NPSP org and scores its Nonprofit Cloud migration readiness from 0-100 with a blocker-by-blocker Markdown report.",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "author": "Jeremy Carmona (Clear Concise Consulting)",
   "license": "MIT",
   "homepage": "https://github.com/clear-concise-carmona/npsp-migration-readiness-scanner",
   "bugs": "https://github.com/clear-concise-carmona/npsp-migration-readiness-scanner/issues",
   "repository": "clear-concise-carmona/npsp-migration-readiness-scanner",
-  "main": "lib/index.js",
   "engines": {
     "node": ">=18.0.0"
   },

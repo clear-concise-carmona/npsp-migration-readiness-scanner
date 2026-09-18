@@ -1,3 +1,10 @@
+<!-- Fictional sample. See the note at the end of this file. -->
+
+> **This example uses fictional or placeholder data. It does not represent a real Salesforce
+> org, client, or assessment result.** It was written by hand to show every section of the
+> report format, including a blocker of each severity. It is not the output of a scan against
+> any org.
+
 # NPSP Migration Readiness Report
 
 **Org:** demo-org@clearconciseconsulting.com.scanner-sample
